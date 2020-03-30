@@ -3,25 +3,28 @@ import { Link } from "react-router-dom";
 import Fetch from "./Fetch";
 
 const Forms: React.FC<IFormsProps> = props => {
-  const [user, setUser] = useState("");
+  const [userid, setUserid] = useState("");
   const [text, setText] = useState("");
+  const [location, setLocation] = useState("");
 
   let handleChange = (e: string, id: string) => {
     if (id === "user") {
-      setUser(e);
+      setUserid(e);
     } else if (id === "text") {
       setText(e);
-    }
+    } else if (id === "location") {
+      setLocation(e);
   };
 
   let handleClick = () => {
-    if (user !== "" && text !== "") {
+    if (userid !== "" && text !== "" && location !== "") {
       Fetch(
         {
-          user: user,
-          text: text
+          userid: userid,
+          text: text,
+          location: location
         },
-        "/api/Posts",
+        "/api/Chirps",
         "POST"
       );
     }
@@ -34,9 +37,9 @@ const Forms: React.FC<IFormsProps> = props => {
         <input
           type="text"
           className="form-control"
-          id="user"
-          value={user}
-          onChange={e => handleChange(e.target.value, "user")}
+          id="userid"
+          value={userid}
+          onChange={e => handleChange(e.target.value, "userid")}
         />
         <small id="userMsg" className="form-text text-muted">
           We plan to stalk you.
@@ -50,6 +53,16 @@ const Forms: React.FC<IFormsProps> = props => {
           id="text"
           value={text}
           onChange={e => handleChange(e.target.value, "text")}
+        />
+      </div>
+      <div className="form-group col-sm-4">
+        <label htmlFor="msg">Location</label>
+        <input
+          type="text"
+          className="form-control"
+          id="location"
+          value={location}
+          onChange={e => handleChange(e.target.value, "location")}
         />
       </div>
       <Link to="/">

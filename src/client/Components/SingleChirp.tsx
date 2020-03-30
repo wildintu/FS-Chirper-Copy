@@ -2,61 +2,66 @@ import React, { useState, useEffect } from "react";
 import { useParams, RouteComponentProps, Link } from "react-router-dom";
 import Fetch from "./Fetch";
 
-let SinglePost: React.FC<ISinglePostProps> = ({
+let SingleChirp: React.FC<ISingleChirpProps> = ({
   match: {
     params: { id }
   }
 }) => {
-  const [user, setUser] = useState("");
+  const [userid, setUserid] = useState("");
   const [text, setText] = useState("");
+  const [location, setLocation] = useState("");
 
   let handleChange = (e: string, id: string) => {
-    if (id === "user") {
-      setUser(e);
+    if (id === "userid") {
+      setUserid(e);
     } else if (id === "text") {
       setText(e);
-    }
+    } else if (id === "location") {
+      setLocation(e);
   };
 
   let handleClick = () => {
-    if (user !== "user" && text !== "text") {
+    if (userid !== "user" && text !== "text" && location !== "location") {
       Fetch(
         {
-          user: user,
-          text: text
+          userid: userid,
+          text: text,
+          location: location
         },
-        `/api/Posts/${id}`,
+        `/api/Chirps/${id}`,
         "PUT"
       );
     }
   };
 
   let handleDelete = () => {
-    if (user !== "user" && text !== "text") {
+    if (userid !== "user" && text !== "text" && location !== "location") {
       Fetch(
         {
-          user: user,
-          text: text
+          userid: userid,
+          text: text,
+          location: location
         },
-        `/api/Posts/${id}`,
+        `/api/Chirps/${id}`,
         "DELETE"
       );
     }
   };
 
-  let postPost = async () => {
+  let postBlog = async () => {
     try {
-      let res = await fetch(`/api/Posts/${id}`);
-      let apost = await res.json();
-      setUser(apost.user);
-      setText(apost.text);
+      let res = await fetch(`/api/Chirps/${id}`);
+      let ablog = await res.json();
+      setUserid(ablog.userid);
+      setText(ablog.text);
+      setLocation(ablog.location);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    postPost();
+    postBlog();
   }, []);
 
   return (
@@ -66,9 +71,9 @@ let SinglePost: React.FC<ISinglePostProps> = ({
         <input
           type="text"
           className="form-control"
-          id="user"
-          value={user}
-          onChange={e => handleChange(e.target.value, "user")}
+          id="userid"
+          value={userid}
+          onChange={e => handleChange(e.target.value, "userid")}
         />
         <small id="userMsg" className="form-text text-muted">
           We plan to stalk you.
@@ -82,6 +87,16 @@ let SinglePost: React.FC<ISinglePostProps> = ({
           id="text"
           value={text}
           onChange={e => handleChange(e.target.value, "text")}
+        />
+      </div>
+      <div className="form-group col-sm-4">
+        <label htmlFor="msg">Location</label>
+        <input
+          type="text"
+          className="form-control"
+          id="location"
+          value={location}
+          onChange={e => handleChange(e.target.value, "location")}
         />
       </div>
       <Link to="/">
@@ -108,9 +123,9 @@ let SinglePost: React.FC<ISinglePostProps> = ({
   );
 };
 
-export interface ISinglePostProps
+export interface ISingleChirpProps
   extends RouteComponentProps<{ id: string }> {}
 
-export interface ISinglePostState {}
+export interface ISingleChirpState {}
 
-export default SinglePost;
+export default SingleChirp;

@@ -1,5 +1,5 @@
-let Fetch = async (posts: object, url: string, methodtype: string) => {
-  console.log(posts);
+let Fetch = async (chirps: object, url: string, methodtype: string) => {
+  console.log(chirps);
   try {
     let response = await fetch(url, {
       method: methodtype,
@@ -11,7 +11,7 @@ let Fetch = async (posts: object, url: string, methodtype: string) => {
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
-      body: JSON.stringify(posts)
+      body: JSON.stringify(chirps)
     });
     return await response.text();
   } catch (err) {

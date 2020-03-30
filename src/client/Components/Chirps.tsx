@@ -1,32 +1,33 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-const Posts: React.FC<IPostsProps> = props => {
-    const [post, setPost] = useState([]);
+const Chirps: React.FC<IChirpsProps> = props => {
+    const [chirp, setChirp] = useState([]);
   
-    let grabPosts = async () => {
+    let grabChirps = async () => {
       try {
-        let r = await fetch("/api/posts");
-        let post = await r.json();
-        postArray(post);
+        let r = await fetch("/api/chirps");
+        let chirp = await r.json();
+        chirpArray(chirp);
       } catch (error) {
         console.log(error);
       }
     };
   
-    let postArray = (post: any) => {
-      let keys = Object.keys(post);
+    let chirpArray = (post: any) => {
+      let keys = Object.keys(chirp);
       let arr = keys.map((element) => {
-        return post[element];
+        return chirp[element];
       });
   
       let cards: JSX.Element[] = arr.map((element, index) => {
         return (
           <div className="card col-sm-4" key={index}>
             <div className="card-body">
-              <h5 className="card-title">{element.user}</h5>
+              <h5 className="card-title">{element.userid}</h5>
               <p className="card-text">{element.text}</p>
-              <Link to={`/Posts/${element.id}/admin`}>
+              <p className="card-text">{element.location}</p>
+              <Link to={`/Chirps/${element.id}/admin`}>
                 <button
                   type="button"
                   className="btn btn-info"
@@ -38,11 +39,11 @@ const Posts: React.FC<IPostsProps> = props => {
           </div>
         );
       });
-      setPost(cards);
+      setChirp(cards);
     };
   
     useEffect(() => {
-      grabPosts();
+      grabChirps();
     }, []);
   
     return (
@@ -51,15 +52,15 @@ const Posts: React.FC<IPostsProps> = props => {
           Post to API
         </Link>
         {/* calling this.state.chirp */}
-        {post}
+        {chirp}
       </div>
     );
   };
   
-  export interface IPostsProps {}
+  export interface IChirpsProps {}
   
-  export interface IPostsState {
-    post: string;
+  export interface IChirpsState {
+    chirp: string;
   }
   
-  export default Posts;
+  export default Chirps;

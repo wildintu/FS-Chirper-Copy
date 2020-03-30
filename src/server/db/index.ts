@@ -1,12 +1,12 @@
 import * as mysql from 'mysql';
-import posts from './posts';
+import chirps from './chirps';
 
 export const Connection = mysql.createConnection({
     host: 'localhost',
     port: 3306,
-    user: 'poster',
+    user: 'karen',
     password: 'blah',
-    database: 'chirptable'
+    database: 'chirpr'
 });
 
 export const Query = (query: string, values?: Array<string | number>) => {
@@ -19,5 +19,5 @@ export const Query = (query: string, values?: Array<string | number>) => {
 }
 
 export default {
-    posts
+    chirps
 }

@@ -7,18 +7,18 @@ router.get('/api/hello', (req, res, next) => {
     res.json('World');
 });
 
-router.get('/api/posts/:id?', async (req, res) => {
+router.get('/api/chirps/:id?', async (req, res) => {
     let id = req.params.id;
     if (id) {
         try {
-            res.json((await db.posts.one(id))[0])
+            res.json((await db.chirps.one(id))[0])
         } catch (err) {
             if (err) throw err;
             res.sendStatus(500);
         }
     } else {
         try {
-            res.json(await db.posts.all());
+            res.json(await db.chirps.all());
         } catch (err) {
             console.log(err)
             res.sendStatus(500)
@@ -26,33 +26,35 @@ router.get('/api/posts/:id?', async (req, res) => {
     }
 })
 
-router.post('/api/posts', async (req, res) => {
-    let user = req.body.user;
+router.post('/api/chirps', async (req, res) => {
+    let userid = req.body.userid;
     let text = req.body.text;
+    let location = req.body.location;
     try {
-        res.json(await db.posts.post(user, text));
+        res.json(await db.chirps.post(userid, text, location));
     } catch (err) {
         res.sendStatus(500);
     }
 })
 
-router.put('/api/posts/:id?', async (req, res) => {
-    let user = req.body.user;
+router.put('/api/chirps/:id?', async (req, res) => {
+    let userid = req.body.userid;
     let text = req.body.text;
+    let location = req.body.location;
     let id = req.params.id;
     try {
-        res.json(await db.posts.put(id, user, text));
+        res.json(await db.chirps.put(id, userid, text, location));
     } catch (err) {
         console.log(err)
         res.sendStatus(500);
     }
 })
 
-router.delete('/api/posts/:id?', async (req, res) => {
+router.delete('/api/chirps/:id?', async (req, res) => {
     let id = req.params.id;
     if (id) {
         try {
-            res.json((await db.posts.del(id))[0])
+            res.json((await db.chirps.del(id))[0])
         } catch (err) {
             if (err) throw err;
             res.sendStatus(500);
