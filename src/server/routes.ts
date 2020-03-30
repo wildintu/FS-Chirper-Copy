@@ -8,7 +8,7 @@ router.get('/api/hello', (req, res, next) => {
 });
 
 router.get('/api/chirps/:id?', async (req, res) => {
-    let id = req.params.id;
+    let id = parseInt(req.params.id, 10);
     if (id) {
         try {
             res.json((await db.chirps.one(id))[0])
@@ -27,7 +27,7 @@ router.get('/api/chirps/:id?', async (req, res) => {
 })
 
 router.post('/api/chirps', async (req, res) => {
-    let userid = req.body.userid;
+    let userid = parseInt(req.body.userid, 10);
     let text = req.body.text;
     let location = req.body.location;
     try {
@@ -38,10 +38,10 @@ router.post('/api/chirps', async (req, res) => {
 })
 
 router.put('/api/chirps/:id?', async (req, res) => {
-    let userid = req.body.userid;
+    let userid = parseInt(req.body.userid, 10);
     let text = req.body.text;
     let location = req.body.location;
-    let id = req.params.id;
+    let id = parseInt(req.params.id,10);
     try {
         res.json(await db.chirps.put(id, userid, text, location));
     } catch (err) {
@@ -51,7 +51,7 @@ router.put('/api/chirps/:id?', async (req, res) => {
 })
 
 router.delete('/api/chirps/:id?', async (req, res) => {
-    let id = req.params.id;
+    let id = parseInt(req.params.id,10);
     if (id) {
         try {
             res.json((await db.chirps.del(id))[0])

@@ -18,10 +18,10 @@ let SingleChirp: React.FC<ISingleChirpProps> = ({
       setText(e);
     } else if (id === "location") {
       setLocation(e);
-  };
+  }};
 
   let handleClick = () => {
-    if (userid !== "user" && text !== "text" && location !== "location") {
+    if (userid !== "userid" && text !== "text" && location !== "location") {
       Fetch(
         {
           userid: userid,
@@ -35,7 +35,7 @@ let SingleChirp: React.FC<ISingleChirpProps> = ({
   };
 
   let handleDelete = () => {
-    if (userid !== "user" && text !== "text" && location !== "location") {
+    if (userid !== "userid" && text !== "text" && location !== "location") {
       Fetch(
         {
           userid: userid,

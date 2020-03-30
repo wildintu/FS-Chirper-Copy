@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Fetch from "./Fetch";
+import { IAppProps } from "../App";
 
-const Forms: React.FC<IFormsProps> = props => {
+const Forms: React.FC<IAppProps> = props => {
   const [userid, setUserid] = useState("");
   const [text, setText] = useState("");
   const [location, setLocation] = useState("");
@@ -14,7 +15,7 @@ const Forms: React.FC<IFormsProps> = props => {
       setText(e);
     } else if (id === "location") {
       setLocation(e);
-  };
+  }};
 
   let handleClick = () => {
     if (userid !== "" && text !== "" && location !== "") {
@@ -78,9 +79,5 @@ const Forms: React.FC<IFormsProps> = props => {
     </form>
   );
 };
-
-export interface IFormsProps {}
-
-export interface IFormsState {}
 
 export default Forms;

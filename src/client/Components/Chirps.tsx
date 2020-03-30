@@ -14,17 +14,18 @@ const Chirps: React.FC<IChirpsProps> = props => {
       }
     };
   
-    let chirpArray = (post: any) => {
+    let chirpArray = (chirp: any) => {
       let keys = Object.keys(chirp);
       let arr = keys.map((element) => {
         return chirp[element];
       });
+      // console.log(keys)
   
       let cards: JSX.Element[] = arr.map((element, index) => {
         return (
           <div className="card col-sm-4" key={index}>
             <div className="card-body">
-              <h5 className="card-title">{element.userid}</h5>
+              <h5 className="card-title">{element.name}</h5>
               <p className="card-text">{element.text}</p>
               <p className="card-text">{element.location}</p>
               <Link to={`/Chirps/${element.id}/admin`}>
